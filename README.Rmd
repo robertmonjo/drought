@@ -1,48 +1,57 @@
-Climatic classification of drought typologies
-================
-Robert Monjo, Dominic Royé, Javier Martin-Vide
-19 juny de 2019
+---
+title: "Climatic classification of drought typologies"
+author: "Robert Monjo, Dominic Royé, Javier Martin-Vide"
+date: "19 juny de 2019"
+output: rmarkdown::github_document
+---
 
-Abstract
---------
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+
+## Abstract
 
 Drought duration strongly depends on the definition thereof. In meteorology, dryness is habitually measured by means of fixed thresholds (e.g. 0.1 or 1 mm usually define dry spells) or climatic mean values (as is the case of the Standardised Precipitation Index), but this also depends on the aggregation time interval considered. However, robust measurements of drought duration are required for analysing the statistical significance of possible changes. Herein we have climatically classified the drought duration around the world according to their similarity to the voids of the Cantor set. Dryness time structure can be concisely measured by the n-index (from the regular/irregular alternation of dry/wet spells), which is closely related to the Gini index and to a Cantor-based exponent. This enables the world’s climates to be classified into six large types based upon a new measure of drought duration. We performed the dry-spell analysis using the full global gridded daily Multi-Source Weighted-Ensemble Precipitation (MSWEP) dataset. The MSWEP combines gauge-, satellite-, and reanalysis-based data to provide reliable precipitation estimates. The study period comprises the years 1979-2016 (total of 45165 days), and a spatial resolution of 0.5º, with a total of 259,197 grid points.
 
-Example of n-index applied to dry spells
-----------------------------------------
+
+## Example of n-index applied to dry spells
 
 ### Loading functions
-
-``` r
+```{r}
 source("n-index.r")
 source("functions_spell.R")
 ```
 
 ### Load data example
 
-``` r
-load("test_points.RData")
+The sample is three different points from the Multi-Source Weighted-Ensemble Precipitation (MSWEP) dataset on which is based the study.
 
+```{r}
+load("test_points.RData")
 str(test_points)
+
+#coordinates of sample points
+test_points$lonlat
 ```
 
-    ## List of 2
-    ##  $ pr    :'data.frame':  13880 obs. of  4 variables:
-    ##   ..$ date      : Date[1:13880], format: "1979-01-01" ...
-    ##   ..$ p1_africa : num [1:13880] 5.65 2.32 7.87 37.91 1.51 ...
-    ##   ..$ p2_atacama: num [1:13880] 0 0 0 0 0 ...
-    ##   ..$ p3_india  : num [1:13880] 0 0 0 0 0 0 0 0 0 0 ...
-    ##  $ lonlat:'data.frame':  3 obs. of  3 variables:
-    ##   ..$ lat: num [1:3(1d)] 1.75 -22.75 20.75
-    ##   ..$ lon: num [1:3(1d)] 24.2 -69.2 80.2
-    ##   ..$ p  : Factor w/ 3 levels "p1","p2","p3": 1 2 3
+```{r}
+pr <- test_points$pr
 
-Map of drought typologies
--------------------------
+apply(pr[, 2:4], 2, mean_dw_days)
+
+apply(pr[, 2:4], 2, nindex_spell)
+
+apply(pr[, 2:4], 2, mean_spells)
+
+```
+
+
+## Map of drought typologies
 
 ### Required packages
 
-``` r
+```{r}
 library(tidyverse)
 library(sf)
 library(raster)
@@ -51,12 +60,12 @@ library(rnaturalearth)
 
 ### Preparing data
 
-1.  Import the raster and the legend classes.
-2.  Project the raster from WGS84 to Robinson.
-3.  Joining the id classes to the drought clasification.
-4.  Mapping the final data with ggplot2
+1. Import the raster and the legend classes.
+2. Project the raster from WGS84 to Robinson.
+3. Joining the id classes to the drought clasification. 
+4. Mapping the final data with ggplot2
 
-``` r
+```{r}
 #raster data
 drought_raster <- raster("./data/drought_class.tif")
 
@@ -87,11 +96,12 @@ drought_df <- left_join(drought_df, drought_legend,  by = "id")
 lab <- unique(drought_df$class)
 
 drought_df <- mutate(drought_df, class = factor(class, lab[c(2,6, 1,3, 4:5)]))
+
 ```
 
 ### Mapping
 
-``` r
+```{r}
 #world coastline
 world <- ne_coastline(scale = 10, returnclass = "sf") %>% 
               st_transform(crs = crs_robin)
@@ -134,13 +144,14 @@ ggplot(drought_df)+
      coord_sf()+
       theme_void()+
        labs(fill = "")
+
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-How to cite
------------
+
+## How to cite
 
 Data: Monjo, R; Royé, D; Martin-Vide, J. (2019). Drought lacunarity around the world and its classification. doi: [10.5281/zenodo.3247041](10.5281/zenodo.3247041)
 
 n-index: 1) Monjo, R. (2016): Measure of rainfall time structure using the dimensionless n-index, Clim. Res., 67, 71–86. 2) Monjo, R. and Martin-Vide, J. (2016): Daily precipitation concentration around the world according to several indices, Int. J. Climatol., 36, 3828–3838.
+
