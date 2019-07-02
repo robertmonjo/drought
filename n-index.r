@@ -1,5 +1,9 @@
 #######################################################################################
-#                                    ABSOLUTE N-INDEX   (CLASSIC)
+#                                    ABSOLUTE N-INDEX   (CLASSIC)                     #
+# Author: Robert Monjo                                                                #
+# Email: robert@ficlima.org                                                           #
+# Cite:                                                                               #   
+# Monjo, R. (2016). Clim. Res., 67, 71–86.                                            #
 #######################################################################################
 
 Nindex = function(pr, profile=F, NL=NULL, linear=F, x=NULL)

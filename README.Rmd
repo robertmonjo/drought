@@ -25,7 +25,7 @@ source("functions_spell.R")
 
 ### Load data example
 
-The sample is three different points from the Multi-Source Weighted-Ensemble Precipitation (MSWEP) dataset on which is based the study.
+Three different points will be used for this example from the Multi-Source Weighted-Ensemble Precipitation ([MSWEP](http://www.gloh2o.org/)) dataset on which is based the study. 
 
 ```{r}
 load("test_points.RData")
@@ -38,11 +38,14 @@ test_points$lonlat
 ```{r}
 pr <- test_points$pr
 
+#mean dry/wet days
 apply(pr[, 2:4], 2, mean_dw_days)
 
-apply(pr[, 2:4], 2, nindex_spell)
-
+#mean dry/wet spell
 apply(pr[, 2:4], 2, mean_spells)
+
+#n-index: n and I0
+apply(pr[, 2:4], 2, nindex_spell)
 
 ```
 
@@ -130,7 +133,6 @@ grat_map <- st_graticule() %>%
 
 
 #map with ggplot2
-
 ggplot(drought_df)+
   geom_tile(aes(x, y, fill = class))+
   geom_sf(data = world, 
@@ -146,8 +148,6 @@ ggplot(drought_df)+
        labs(fill = "")
 
 ```
-
-
 
 ## How to cite
 

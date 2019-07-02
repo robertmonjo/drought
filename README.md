@@ -20,9 +20,10 @@ source("functions_spell.R")
 
 ### Load data example
 
+Three different points will be used for this example from the Multi-Source Weighted-Ensemble Precipitation ([MSWEP](http://www.gloh2o.org/)) dataset on which is based the study.
+
 ``` r
 load("test_points.RData")
-
 str(test_points)
 ```
 
@@ -36,6 +37,102 @@ str(test_points)
     ##   ..$ lat: num [1:3(1d)] 1.75 -22.75 20.75
     ##   ..$ lon: num [1:3(1d)] 24.2 -69.2 80.2
     ##   ..$ p  : Factor w/ 3 levels "p1","p2","p3": 1 2 3
+
+``` r
+#coordinates of sample points
+test_points$lonlat
+```
+
+    ##      lat    lon  p
+    ## 1   1.75  24.25 p1
+    ## 2 -22.75 -69.25 p2
+    ## 3  20.75  80.25 p3
+
+``` r
+pr <- test_points$pr
+
+#mean dry/wet days
+apply(pr[, 2:4], 2, mean_dw_days)
+```
+
+    ## $p1_africa
+    ## $p1_africa$wet
+    ## [1] 257.1842
+    ## 
+    ## $p1_africa$dry
+    ## [1] 108.0789
+    ## 
+    ## 
+    ## $p2_atacama
+    ## $p2_atacama$wet
+    ## [1] 2.210526
+    ## 
+    ## $p2_atacama$dry
+    ## [1] 363.0526
+    ## 
+    ## 
+    ## $p3_india
+    ## $p3_india$wet
+    ## [1] 126.8421
+    ## 
+    ## $p3_india$dry
+    ## [1] 238.4211
+
+``` r
+#mean dry/wet spell
+apply(pr[, 2:4], 2, mean_spells)
+```
+
+    ## $p1_africa
+    ## $p1_africa$wet
+    ## [1] 4.501612
+    ## 
+    ## $p1_africa$dry
+    ## [1] 1.891755
+    ## 
+    ## 
+    ## $p2_atacama
+    ## $p2_atacama$wet
+    ## [1] 1.333333
+    ## 
+    ## $p2_atacama$dry
+    ## [1] 215.5625
+    ## 
+    ## 
+    ## $p3_india
+    ## $p3_india$wet
+    ## [1] 5.12221
+    ## 
+    ## $p3_india$dry
+    ## [1] 9.617834
+
+``` r
+#n-index: n and I0
+apply(pr[, 2:4], 2, nindex_spell)
+```
+
+    ## $p1_africa
+    ## $p1_africa$I0
+    ## [1] 7.452648
+    ## 
+    ## $p1_africa$n
+    ## [1] 0.3239289
+    ## 
+    ## 
+    ## $p2_atacama
+    ## $p2_atacama$I0
+    ## [1] 284.0345
+    ## 
+    ## $p2_atacama$n
+    ## [1] 0.4541468
+    ## 
+    ## 
+    ## $p3_india
+    ## $p3_india$I0
+    ## [1] 33.42805
+    ## 
+    ## $p3_india$n
+    ## [1] 0.5093033
 
 Map of drought typologies
 -------------------------
@@ -120,7 +217,6 @@ grat_map <- st_graticule() %>%
 
 
 #map with ggplot2
-
 ggplot(drought_df)+
   geom_tile(aes(x, y, fill = class))+
   geom_sf(data = world, 
@@ -136,7 +232,7 @@ ggplot(drought_df)+
        labs(fill = "")
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 How to cite
 -----------
