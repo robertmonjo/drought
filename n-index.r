@@ -554,3 +554,79 @@ Pmax_ = function(pr,NL=NULL)
    }
   return(Pmax)
 }
+
+#######################################################################################
+#                                    EXAMPLE OF FIGURE OF N-INDEX
+#######################################################################################
+
+plot_n = function(p,noms=NULL,cex=1)
+{
+  
+  axis.= function(side, escala, names=escala, srt = 0, col.axis = "black",col="black",cex=1,cex.axis=1, lwd=1, line=0, ...)
+  {
+    axis(side, escala, labels=F,col.axis = col.axis,col=col,cex=cex,cex.axis=cex.axis,lwd=lwd)
+    axis(side, escala, names, srt = srt, col.axis = col.axis,col,cex=cex,cex.axis=cex.axis,lwd=0,line=line, ...)
+  }
+  
+  lwd=2.5/1.5*cex 
+  cex.axis=1.2/1.5*cex
+  cex2=2/1.5*cex
+  lin=2.105/1.5*cex
+  lin2=2.1*cex
+  
+  pp = Pmax_(p)       #nn=nlp(Pmax_(c(1,2,3))); (nn$Dn[2]- nn$Dn[1])/(2*nn$n)*100
+  nn = nlp(pp)
+  x = c(t(cbind(c(0:length(p)),c(0:length(p))+0.001)))
+  y = c(0,t(cbind(p,p)),0)
+  
+  plot(x,y,typ="l",axes=F,ylim=c(0,1.1*max(y)),xlab="",ylab="")
+  polygon(x,y,col="skyblue",lwd=lwd)
+  lines(x,y,typ="h",lwd=lwd)
+  box(lwd=lwd/1.2)
+  axis.(1,0:8,rep("",9), line=-0.3*lin2,cex.axis=cex); 
+  axis.(1,0:7+0.5,1:8, line=-0.2*lin2, lwd=0,cex.axis=cex); 
+  axis.(2,0:6,line=-0.2*lin2,cex.axis=cex); 
+  mtext(side=1,"Date (day)",line=1*lin,cex=cex/1.5)  #Kronological time
+  mtext(side=2,"Rainfall (mm)",line=lin,cex=cex/1.5)
+  mtext(side=3,paste(noms[1],"                                               "),cex=cex/1.2,font=2,line=0.1)
+  
+  T = length(pp) 
+  plot(0:T, c(0,pp),typ="l",axes=F,lwd=lwd,xlab="",ylab="",ylim=c(0,1.0*max(pp))); 
+  #lines(0:length(pp), c(0,pp/2),typ="l",lwd=lwd,col="darkgreen"); axis.(4,seq(0,16,2)/2,seq(0,16,2),line=-0.1*lin);
+  mtext(side=3,paste(noms[2],"                                               "),cex=cex/1.2,font=2,line=0.1)
+  for(i in 0:10)
+  {
+    lines(seq(0,T,0.01),max(pp)*(seq(0,T,0.01)/T)^(1-i/10), lty=2,col="gray")
+    j=4-4*(i/10)^1; j=1; text(j,max(pp)*(j/T)^(1-i/10),i/10,col="gray20",cex=cex/1.2)
+  }
+  lines(0:length(pp), c(0,pp),lwd=lwd);
+  box(lwd=lwd/1.2)
+  axis.(1,0:8,line=-0.15*lin2,cex.axis=cex); 
+  axis.(2,seq(0,18,2),line=-0.2*lin2,cex.axis=cex); 
+  mtext(side=1,expression(paste(italic(t)," - time (days)")),line=1.1*lin,cex=cex/1.5)  #"Integrating time
+  mtext(side=2,expression(paste(italic(P)," - max. accum. (mm)")),line=lin,cex=cex/1.5)
+  legend("bottomright",legend=c("Observed","Ideal n-index"), lty = c(1,2), lwd=c(lwd,1), col=c("black","gray"),cex=cex,  bty='n')  
+  
+  
+  MAI = pp/1:length(pp)
+  plot(MAI,xlim=c(0,length(pp)),axes=F,lwd=lwd,ylim=c(0,1.1*max(MAI)), pch=20,cex=cex2,xlab="",ylab="")
+  box(lwd=lwd/1.2)
+  axis.(1,0:8,line=-0.15*lin2,cex.axis=cex); 
+  axis.(2,seq(0,7,0.5),line=-0.2*lin2,cex.axis=cex); 
+  mtext(side=1,expression(paste(italic(t)," - time (days)")),line=1.1*lin,cex=cex/1.5)  #"Averaging time
+  mtext(side=2,expression(paste(italic(I)," - MAI (mm/day)")),line=lin,cex=cex/1.5)
+  mtext(side=3,paste(noms[3],"                                               "),cex=cex/1.2,font=2,line=0.1)
+  xx = seq(1,8,0.5)
+  yy = nn$I0*(1/xx)^(nn$n)
+  y11= nn$DI[1]*(1/xx)^(nn$Dn[1])
+  y22= nn$DI[2]*(1/xx)^(nn$Dn[2])
+  lines(xx,yy,lwd=lwd,col="red")
+  lines(xx,y11,lwd=lwd,col="darkred",lty=2)
+  lines(xx,y22,lwd=lwd,col="darkred",lty=2)
+  legend("bottomleft",legend=c("Observed",paste("Fitted n =",round(nn$n,2)),"95% interval"),cex=cex, 
+         pch=c(20,20,20), lty=c(0,1,2), pt.cex=c(cex2,0,0), lwd=c(0,lwd,lwd), col=c("black","red","darkred"),bty='n')
+  
+  px = seq(1,T,1)
+  py = nn$I0*(1/px)^(nn$n)
+  print(suppressWarnings(ks.test(pp/1:T,py)))
+}
