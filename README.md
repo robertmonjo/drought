@@ -11,6 +11,8 @@ Drought duration strongly depends on the definition thereof. In meteorology, dry
 Example of n-index applied to dry spells
 ----------------------------------------
 
+The n-index method can be applied to both amounts both dry and wet spells.
+
 ### Loading functions
 
 ``` r
@@ -134,6 +136,8 @@ apply(pr[, 2:4], 2, nindex_spell)
     ## $p3_india$n
     ## [1] 0.5093033
 
+The clasification of drought uses the n-index and the wet spells: Low (L), medium (M) or high (H) values of the DSS -index: Type S when *n* &lt; 0.3, Type M if *n* is within the interval (0.3, 0.4), and Type L for *n* &gt; 0.4. For the three main types, it is advisable to distinguish between the alternation with longer (ℓ) or shorter (s) wet events.
+
 Map of drought typologies
 -------------------------
 
@@ -233,6 +237,8 @@ ggplot(drought_df)+
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
+Other related global maps (mean dry/wet spell, n-index, etc) are available at [10.5281/zenodo.3247041](10.5281/zenodo.3247041).
 
 How to cite
 -----------
