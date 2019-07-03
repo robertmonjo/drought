@@ -21,7 +21,11 @@ The n-index (between 0 and 1) was designed to measure the regularity of consecut
 ### Loading functions
 ```{r}
 source("n-index.r")
+source("functions_spell.R")
 ```
+
+
+### Background
 
 Let p1 and p2 be two wet spells at daily scale, such as the first one is relatively more concentrated (n = 0.5) than the second one (n = 0.2)
 
@@ -43,20 +47,9 @@ plot_n(p1,noms=c("a)","b)","c)"),cex=1.04)
 plot_n(p2,noms=c("d)","e)","f)"),cex=1.04)
 ```
 
-
-## Example of n-index applied to dry spells
-
-The n-index method can be applied to both amounts both dry and wet spells.
-
-### Loading functions
-```{r}
-source("n-index.r")
-source("functions_spell.R")
-```
-
 ### Load data example
 
-Three different points will be used for this example from the Multi-Source Weighted-Ensemble Precipitation ([MSWEP](http://www.gloh2o.org/)) dataset on which is based the study. 
+The n-index method can be applied to both amounts both dry and wet spells. Three different points will be used for this example from the Multi-Source Weighted-Ensemble Precipitation ([MSWEP](http://www.gloh2o.org/)) dataset on which is based the study. 
 
 ```{r}
 load("test_points.RData")
