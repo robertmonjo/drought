@@ -3,15 +3,35 @@ Climatic classification of drought typologies
 Robert Monjo, Dominic Royé, Javier Martin-Vide
 19 juny de 2019
 
-Abstract
---------
+## Abstract
 
-Drought duration strongly depends on the definition thereof. In meteorology, dryness is habitually measured by means of fixed thresholds (e.g. 0.1 or 1 mm usually define dry spells) or climatic mean values (as is the case of the Standardised Precipitation Index), but this also depends on the aggregation time interval considered. However, robust measurements of drought duration are required for analysing the statistical significance of possible changes. Herein we have climatically classified the drought duration around the world according to their similarity to the voids of the Cantor set. Dryness time structure can be concisely measured by the n-index (from the regular/irregular alternation of dry/wet spells), which is closely related to the Gini index and to a Cantor-based exponent. This enables the world's climates to be classified into six large types based upon a new measure of drought duration. We performed the dry-spell analysis using the full global gridded daily Multi-Source Weighted-Ensemble Precipitation (MSWEP) dataset. The MSWEP combines gauge-, satellite-, and reanalysis-based data to provide reliable precipitation estimates. The study period comprises the years 1979-2016 (total of 45165 days), and a spatial resolution of 0.5º, with a total of 259,197 grid points.
+Drought duration strongly depends on the definition thereof. In
+meteorology, dryness is habitually measured by means of fixed thresholds
+(e.g. 0.1 or 1 mm usually define dry spells) or climatic mean values (as
+is the case of the Standardised Precipitation Index), but this also
+depends on the aggregation time interval considered. However, robust
+measurements of drought duration are required for analysing the
+statistical significance of possible changes. Herein we have
+climatically classified the drought duration around the world according
+to their similarity to the voids of the Cantor set. Dryness time
+structure can be concisely measured by the n-index (from the
+regular/irregular alternation of dry/wet spells), which is closely
+related to the Gini index and to a Cantor-based exponent. This enables
+the world’s climates to be classified into six large types based upon a
+new measure of drought duration. We performed the dry-spell analysis
+using the full global gridded daily Multi-Source Weighted-Ensemble
+Precipitation (MSWEP) dataset. The MSWEP combines gauge-, satellite-,
+and reanalysis-based data to provide reliable precipitation estimates.
+The study period comprises the years 1979-2016 (total of 45165 days),
+and a spatial resolution of 0.5º, with a total of 259,197 grid points.
 
-Example of n-index applied to wet spells
-----------------------------------------
+## Example of n-index applied to wet spells
 
-The n-index (between 0 and 1) was designed to measure the regularity of consecutive values of rainfall within an event. It is estimated from the exponent of the power law relating the maximum averaged intensity over given periods of time (e.g. minutes, hours or days) and these periods of averaging.
+The n-index (between 0 and 1) was designed to measure the regularity of
+consecutive values of rainfall within an event. It is estimated from the
+exponent of the power law relating the maximum averaged intensity over
+given periods of time (e.g. minutes, hours or days) and these periods of
+averaging.
 
 ### Loading functions
 
@@ -22,20 +42,29 @@ source("functions_spell.R")
 
 ### Background
 
-Let p1 and p2 be two wet spells at daily scale, such as the first one is relatively more concentrated (n = 0.5) than the second one (n = 0.2)
+Let p1 and p2 be two wet spells at daily scale, such as the first one is
+relatively more concentrated (n = 0.5) than the second one (n = 0.2)
 
 ``` r
 p1 = c(1,3,5,2.5,0.5,0.5,1,2.5)
 p2 = c(1,2,3,2.5,1.5,2,2.5,1.5)
 ```
 
-Then, it is possible to compare the hyetographs (left panel), the maximum accumulated precipitation (central panel) Example of n-index estimation for 2 rainfall events from 8 individual reports: hyetographs (left panel); maximum precipitation P for the integration time t (central panel); maximum average intensities (MAI) Iand fitted curves for each case (right panel), according to the ecuation I = Imax(tmax/t)^n. Theoretical curves (dashed lines) for maximum precipitation (central panel) are built from the equation P = Pmax(t/tmax)^(1−n)
+Then, it is possible to compare the hyetographs (left panel), the
+maximum accumulated precipitation (central panel) Example of n-index
+estimation for 2 rainfall events from 8 individual reports: hyetographs
+(left panel); maximum precipitation P for the integration time t
+(central panel); maximum average intensities (MAI) Iand fitted curves
+for each case (right panel), according to the ecuation I =
+Imax(tmax/t)^n. Theoretical curves (dashed lines) for maximum
+precipitation (central panel) are built from the equation P =
+Pmax(t/tmax)^(1−n)
 
 ``` r
 plot_n(p1)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)![](README_files/figure-markdown_github/unnamed-chunk-3-2.png)![](README_files/figure-markdown_github/unnamed-chunk-3-3.png)
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->![](README_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
 
     ## 
     ##  Two-sample Kolmogorov-Smirnov test
@@ -60,7 +89,7 @@ plot_n(p1,noms=c("a)","b)","c)"),cex=1.04)
 plot_n(p2,noms=c("d)","e)","f)"),cex=1.04)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
     ## 
     ##  Two-sample Kolmogorov-Smirnov test
@@ -71,7 +100,10 @@ plot_n(p2,noms=c("d)","e)","f)"),cex=1.04)
 
 ### Load data example
 
-The n-index method can be applied to both amounts both dry and wet spells. Three different points will be used for this example from the Multi-Source Weighted-Ensemble Precipitation ([MSWEP](http://www.gloh2o.org/)) dataset on which is based the study.
+The n-index method can be applied to both amounts both dry and wet
+spells. Three different points will be used for this example from the
+Multi-Source Weighted-Ensemble Precipitation
+([MSWEP](http://www.gloh2o.org/)) dataset on which is based the study.
 
 ``` r
 load("test_points.RData")
@@ -185,10 +217,13 @@ apply(pr[, 2:4], 2, nindex_spell)
     ## $p3_india$n
     ## [1] 0.5093033
 
-The clasification of drought uses the n-index and the wet spells: Low (L), medium (M) or high (H) values of the DSS -index: Type S when *n* &lt; 0.3, Type M if *n* is within the interval (0.3, 0.4), and Type L for *n* &gt; 0.4. For the three main types, it is advisable to distinguish between the alternation with longer (ℓ) or shorter (s) wet events.
+The clasification of drought uses the n-index and the wet spells: Low
+(L), medium (M) or high (H) values of the DSS -index: Type S when *n* \<
+0.3, Type M if *n* is within the interval (0.3, 0.4), and Type L for *n*
+\> 0.4. For the three main types, it is advisable to distinguish between
+the alternation with longer (\(\ell\)) or shorter (s) wet events.
 
-Map of drought typologies
--------------------------
+## Map of drought typologies
 
 ### Required packages
 
@@ -205,6 +240,8 @@ library(rnaturalearth)
 2.  Project the raster from WGS84 to Robinson.
 3.  Joining the id classes to the drought clasification.
 4.  Mapping the final data with ggplot2
+
+<!-- end list -->
 
 ``` r
 #raster data
@@ -285,13 +322,20 @@ ggplot(drought_df)+
        labs(fill = "")
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-Other related global maps (mean dry/wet spell, n-index, etc) are available at [10.5281/zenodo.3247041](10.5281/zenodo.3247041).
+Other related global maps (mean dry/wet spell, n-index, etc) are
+available at [10.5281/zenodo.3247041](10.5281/zenodo.3247041).
 
-How to cite
------------
+## How to cite
 
-Data: Monjo, R; RoyÃ©, D; Martin-Vide, J. (2019). Drought lacunarity around the world and its classification. doi: [10.5281/zenodo.3247041](10.5281/zenodo.3247041)
+Data: Monjo, R; Royé, D; Martin-Vide, J. (2019). Drought lacunarity
+around the world and its classification. doi:
+[10.5281/zenodo.3247041](10.5281/zenodo.3247041)
 
-Methodology of n-index: 1) Monjo, R. (2016): Measure of rainfall time structure using the dimensionless n-index, Clim. Res., 67, 71â86. [10.3354/cr01359](https://doi.org/10.3354/cr01359) 2) Monjo, R. and Martin-Vide, J. (2016): Daily precipitation concentration around the world according to several indices, Int. J. Climatol., 36, 3828â3838. [10.1002/joc.4596](https://doi.org/10.1002/joc.4596)
+Methodology of n-index: 1) Monjo, R. (2016): Measure of rainfall time
+structure using the dimensionless n-index, Clim. Res., 67, 71-86.
+[10.3354/cr01359](https://doi.org/10.3354/cr01359) 2) Monjo, R. and
+Martin-Vide, J. (2016): Daily precipitation concentration around the
+world according to several indices, Int. J. Climatol., 36, 3828-3838.
+[10.1002/joc.4596](https://doi.org/10.1002/joc.4596)
