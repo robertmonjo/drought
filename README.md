@@ -25,6 +25,8 @@ and reanalysis-based data to provide reliable precipitation estimates.
 The study period comprises the years 1979-2016 (total of 45165 days),
 and a spatial resolution of 0.5º, with a total of 259,197 grid points.
 
+**More extended details**: <https://doi.org/10.5194/essd-2019-115>
+
 ## Example of n-index applied to wet spells
 
 The n-index (between 0 and 1) was designed to measure the regularity of
@@ -332,6 +334,10 @@ available at [10.5281/zenodo.3247041](10.5281/zenodo.3247041).
 Data: Monjo, R; Royé, D; Martin-Vide, J. (2019). Drought lacunarity
 around the world and its classification. doi:
 [10.5281/zenodo.3247041](10.5281/zenodo.3247041)
+
+Monjo, R., Royé, D., and Martin-Vide, J. (2019): Drought lacunarity
+around the world and its classification, Earth Syst. Sci. Data Discuss.,
+<https://doi.org/10.5194/essd-2019-115>, in review.
 
 Methodology of n-index: 1) Monjo, R. (2016): Measure of rainfall time
 structure using the dimensionless n-index, Clim. Res., 67, 71-86.

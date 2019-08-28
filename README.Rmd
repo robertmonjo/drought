@@ -14,6 +14,8 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
 Drought duration strongly depends on the definition thereof. In meteorology, dryness is habitually measured by means of fixed thresholds (e.g. 0.1 or 1 mm usually define dry spells) or climatic mean values (as is the case of the Standardised Precipitation Index), but this also depends on the aggregation time interval considered. However, robust measurements of drought duration are required for analysing the statistical significance of possible changes. Herein we have climatically classified the drought duration around the world according to their similarity to the voids of the Cantor set. Dryness time structure can be concisely measured by the n-index (from the regular/irregular alternation of dry/wet spells), which is closely related to the Gini index and to a Cantor-based exponent. This enables the world's climates to be classified into six large types based upon a new measure of drought duration. We performed the dry-spell analysis using the full global gridded daily Multi-Source Weighted-Ensemble Precipitation (MSWEP) dataset. The MSWEP combines gauge-, satellite-, and reanalysis-based data to provide reliable precipitation estimates. The study period comprises the years 1979-2016 (total of 45165 days), and a spatial resolution of 0.5º, with a total of 259,197 grid points.
 
+**More extended details**: https://doi.org/10.5194/essd-2019-115
+
 ## Example of n-index applied to wet spells
 
 The n-index (between 0 and 1) was designed to measure the regularity of consecutive values of rainfall within an event. It is estimated from the exponent of the power law relating the maximum averaged intensity over given periods of time (e.g. minutes, hours or days) and these periods of averaging.
@@ -180,6 +182,8 @@ Other related global maps (mean dry/wet spell, n-index, etc) are available at [1
 ## How to cite
 
 Data: Monjo, R; Royé, D; Martin-Vide, J. (2019). Drought lacunarity around the world and its classification. doi: [10.5281/zenodo.3247041](10.5281/zenodo.3247041)
+
+Monjo, R., Royé, D., and Martin-Vide, J. (2019): Drought lacunarity around the world and its classification, Earth Syst. Sci. Data Discuss., https://doi.org/10.5194/essd-2019-115, in review.
 
 Methodology of n-index: 1) Monjo, R. (2016): Measure of rainfall time structure using the dimensionless n-index, Clim. Res., 67, 71-86. [10.3354/cr01359](https://doi.org/10.3354/cr01359) 2) Monjo, R. and Martin-Vide, J. (2016): Daily precipitation concentration around the world according to several indices, Int. J. Climatol., 36, 3828-3838. [10.1002/joc.4596](https://doi.org/10.1002/joc.4596)
 
